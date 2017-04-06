@@ -5,7 +5,7 @@
     <dimen name="fixed_max_width">300dp</dimen>
     <dimen name="fixed_width_padding">2dp</dimen>
 
-    <dimen name="fixed_height">54dp</dimen>
+    <dimen name="fixed_height">56dp</dimen>
     <dimen name="fixed_height_top_padding_inactive">2dp
     </dimen><!-- 8(Top Padding) - 12/2(extra padding due to badges) = 2 -->
     <dimen name="fixed_height_top_padding_active">0dp
@@ -46,8 +46,8 @@
     <dimen name="shifting_icon_badge_grid_width">48dp</dimen>
 
     <dimen name="bottom_navigation_elevation">8dp</dimen>
-    <dimen name="bottom_navigation_height">56dp</dimen>
-    <dimen name="bottom_navigation_padded_height">64dp</dimen>
+    <dimen name="bottom_navigation_height">52dp</dimen>
+    <dimen name="bottom_navigation_padded_height">60dp</dimen>
     <dimen name="bottom_navigation_top_margin_correction">-8dp</dimen><!-- 64 - 56 = 8 -->
 
     <dimen name="badge_text_size">12sp</dimen><!-- 10 -->
