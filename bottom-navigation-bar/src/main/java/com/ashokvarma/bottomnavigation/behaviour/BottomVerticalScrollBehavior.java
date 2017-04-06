@@ -76,7 +76,7 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
 
     private void updateSnackBarPosition(CoordinatorLayout parent, V child, View dependency, float translationY) {
         if (dependency != null && dependency instanceof Snackbar.SnackbarLayout) {
-            ViewCompat.animate(dependency).setInterpolator(INTERPOLATOR).setDuration(80).setStartDelay(0).translationY(translationY).start();
+            ViewCompat.animate(dependency).setInterpolator(INTERPOLATOR).setDuration(10).setStartDelay(0).translationY(translationY).start();
         }
     }
 
