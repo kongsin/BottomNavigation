@@ -14,6 +14,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -399,9 +400,9 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             if (mBottomNavigationTabs.size() > mFirstSelectedPosition) {
-                selectTabInternal(mFirstSelectedPosition, true, false, false);
+                selectTabInternal(mFirstSelectedPosition, true, false, false, false);
             } else if (!mBottomNavigationTabs.isEmpty()) {
-                selectTabInternal(0, true, false, false);
+                selectTabInternal(0, true, false, false, false);
             }
         }
     }
@@ -463,7 +464,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener should this change call listener callbacks
      */
     public void selectTab(int newPosition, boolean callListener) {
-        selectTabInternal(newPosition, false, callListener, callListener);
+        selectTabInternal(newPosition, false, callListener, callListener, false);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -487,7 +488,7 @@ public class BottomNavigationBar extends FrameLayout {
             @Override
             public void onClick(View v) {
                 BottomNavigationTab bottomNavigationTabView = (BottomNavigationTab) v;
-                selectTabInternal(bottomNavigationTabView.getPosition(), false, true, false);
+                selectTabInternal(bottomNavigationTabView.getPosition(), false, true, false, true);
             }
         });
 
@@ -513,7 +514,8 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener    is listener callbacks enabled for this change
      * @param forcedSelection if bottom navigation bar forced to select tab (in this case call on selected irrespective of previous state
      */
-    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener, boolean forcedSelection) {
+    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener, boolean forcedSelection, boolean isMenuClicked) {
+        Log.i("TEST_CLICK", "selectTabInternal: selected by clicked menu " + isMenuClicked);
         int oldPosition = mSelectedPosition;
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
@@ -548,7 +550,7 @@ public class BottomNavigationBar extends FrameLayout {
         }
 
         if (callListener) {
-            sendListenerCall(oldPosition, newPosition, forcedSelection);
+            sendListenerCall(oldPosition, newPosition, forcedSelection, isMenuClicked);
         }
     }
 
@@ -559,16 +561,16 @@ public class BottomNavigationBar extends FrameLayout {
      * @param newPosition     newly selected tab position
      * @param forcedSelection if bottom navigation bar forced to select tab (in this case call on selected irrespective of previous state
      */
-    private void sendListenerCall(int oldPosition, int newPosition, boolean forcedSelection) {
+    private void sendListenerCall(int oldPosition, int newPosition, boolean forcedSelection, boolean isUserClicked) {
         if (mTabSelectedListener != null) {
 //                && oldPosition != -1) {
             if (forcedSelection) {
-                mTabSelectedListener.onTabSelected(newPosition);
+                mTabSelectedListener.onTabSelected(newPosition, isUserClicked);
             } else {
                 if (oldPosition == newPosition) {
-                    mTabSelectedListener.onTabReselected(newPosition);
+                    mTabSelectedListener.onTabReselected(newPosition, isUserClicked);
                 } else {
-                    mTabSelectedListener.onTabSelected(newPosition);
+                    mTabSelectedListener.onTabSelected(newPosition, isUserClicked);
                     if (oldPosition != -1) {
                         mTabSelectedListener.onTabUnselected(oldPosition);
                     }
@@ -755,7 +757,7 @@ public class BottomNavigationBar extends FrameLayout {
          *
          * @param position The position of the tab that was selected
          */
-        void onTabSelected(int position);
+        void onTabSelected(int position, boolean isMenuClicked);
 
         /**
          * Called when a tab exits the selected state.
@@ -770,7 +772,7 @@ public class BottomNavigationBar extends FrameLayout {
          *
          * @param position The position of the tab that was reselected.
          */
-        void onTabReselected(int position);
+        void onTabReselected(int position, boolean isMenuClicked);
     }
 
     /**
@@ -778,16 +780,20 @@ public class BottomNavigationBar extends FrameLayout {
      * Extend this if you do not intend to override every method of OnTabSelectedListener.
      */
     public static class SimpleOnTabSelectedListener implements OnTabSelectedListener {
+
         @Override
-        public void onTabSelected(int position) {
+        public void onTabSelected(int position, boolean isMenuClicked) {
+
         }
 
         @Override
         public void onTabUnselected(int position) {
+
         }
 
         @Override
-        public void onTabReselected(int position) {
+        public void onTabReselected(int position, boolean isMenuClicked) {
+
         }
     }
 }
