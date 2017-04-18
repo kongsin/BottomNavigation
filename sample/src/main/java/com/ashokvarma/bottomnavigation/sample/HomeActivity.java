@@ -250,7 +250,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
                         .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Top Charts").setActiveColorResource(R.color.brown))
                         .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
                         .setFirstSelectedPosition(lastSelectedPosition)
                         .initialise();
@@ -268,7 +268,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onTabSelected(int position) {
+    public void onTabSelected(int position, boolean isMenuClicked) {
         lastSelectedPosition = position;
         setMessageText(position + " Tab Selected");
         if (numberBadgeItem != null) {
@@ -282,7 +282,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onTabReselected(int position) {
+    public void onTabReselected(int position, boolean isMenuClicked) {
         setMessageText(position + " Tab Reselected");
     }
 
