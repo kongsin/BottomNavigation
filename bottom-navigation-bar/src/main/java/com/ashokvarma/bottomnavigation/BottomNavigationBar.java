@@ -348,7 +348,12 @@ public class BottomNavigationBar extends FrameLayout {
      * This method should be called at the end of all customisation method.
      * This method will take all changes in to consideration and redraws tabs.
      */
+
     public void initialise() {
+        initialise(true);
+    }
+
+    public void initialise(boolean sendOnCurrentTabSelectedCallback) {
         mSelectedPosition = DEFAULT_SELECTED_POSITION;
         mBottomNavigationTabs.clear();
 
@@ -400,9 +405,9 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             if (mBottomNavigationTabs.size() > mFirstSelectedPosition) {
-                selectTabInternal(mFirstSelectedPosition, true, false, false, false);
+                selectTabInternal(mFirstSelectedPosition, true, false, false, false, sendOnCurrentTabSelectedCallback);
             } else if (!mBottomNavigationTabs.isEmpty()) {
-                selectTabInternal(0, true, false, false, false);
+                selectTabInternal(0, true, false, false, false, sendOnCurrentTabSelectedCallback);
             }
         }
     }
@@ -464,7 +469,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener should this change call listener callbacks
      */
     public void selectTab(int newPosition, boolean callListener) {
-        selectTabInternal(newPosition, false, callListener, callListener, false);
+        selectTabInternal(newPosition, false, callListener, callListener, false, true);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -488,7 +493,7 @@ public class BottomNavigationBar extends FrameLayout {
             @Override
             public void onClick(View v) {
                 BottomNavigationTab bottomNavigationTabView = (BottomNavigationTab) v;
-                selectTabInternal(bottomNavigationTabView.getPosition(), false, true, false, true);
+                selectTabInternal(bottomNavigationTabView.getPosition(), false, true, false, true, true);
             }
         });
 
@@ -514,8 +519,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener    is listener callbacks enabled for this change
      * @param forcedSelection if bottom navigation bar forced to select tab (in this case call on selected irrespective of previous state
      */
-    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener, boolean forcedSelection, boolean isMenuClicked) {
-        Log.i("TEST_CLICK", "selectTabInternal: selected by clicked menu " + isMenuClicked);
+    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener, boolean forcedSelection, boolean isMenuClicked, boolean sendCallbackOnCurrentTabSelected) {
         int oldPosition = mSelectedPosition;
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
@@ -549,7 +553,7 @@ public class BottomNavigationBar extends FrameLayout {
             mSelectedPosition = newPosition;
         }
 
-        if (callListener) {
+        if (callListener && sendCallbackOnCurrentTabSelected) {
             sendListenerCall(oldPosition, newPosition, forcedSelection, isMenuClicked);
         }
     }
