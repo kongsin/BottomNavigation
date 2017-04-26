@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="fixed_label_active">10sp</dimen>
+    <dimen name="fixed_label_inactive">8sp</dimen>
+    <item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>
+
+    <dimen name="fixed_min_width">100dp</dimen>
+    <dimen name="fixed_min_width_small_views">144dp</dimen>
+    <dimen name="fixed_max_width">148dp</dimen>
+    <dimen name="fixed_width_padding">0dp</dimen>
+
+    <string name="MY">240dp</string>
+
+</resources>

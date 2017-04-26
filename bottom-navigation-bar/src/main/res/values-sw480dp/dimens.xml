@@ -4,5 +4,8 @@
     <dimen name="fixed_label_active">14sp</dimen>
     <dimen name="fixed_label_inactive">12sp</dimen>
     <item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>
+    <dimen name="fixed_width_padding">2dp</dimen>
+
+    <string name="MY">480dp</string>
 
 </resources>

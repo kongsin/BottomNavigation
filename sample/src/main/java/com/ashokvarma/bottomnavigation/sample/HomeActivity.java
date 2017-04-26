@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -93,6 +94,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         bottomNavigationBar.setTabSelectedListener(this);
 
         refresh();
+
+        Toast.makeText(this, getString(R.string.MY), Toast.LENGTH_LONG).show();
     }
 
     @Override
